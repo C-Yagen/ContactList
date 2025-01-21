@@ -32,7 +32,6 @@ public class ContactList {
         String contact2;
             for (int i = 0; i < contacts.size() - 1; i++) {
                 for (int j = 0; j < contacts.size() - 1 - i; j++) {
-                    // If contacts(j) comes after contacts(j+1), then swap
                     if (sortBy == 0){
                         contact1 = contacts.get(j).getFirstName();
                         contact2 = contacts.get(j + 1).getFirstName();
@@ -43,7 +42,7 @@ public class ContactList {
                         contact1 = contacts.get(j).getPhoneNumber();
                         contact2 = contacts.get(j + 1).getPhoneNumber();
                     }
-
+                    // If contacts(j) comes after contacts(j+1), then swap
                     if (contact1.compareTo(contact2) > 0){
                         temp = contacts.get(j + 1);
                         contacts.set(j + 1, contacts.get(j));
@@ -92,6 +91,7 @@ public class ContactList {
     public void run(){
         int input = -1;
         Scanner s = new Scanner(System.in);
+        // Prints instructions
         System.out.println("Menu:\n1. Add Contact\n2. List All Contacts By First Name\n3. List All Contacts By Last Name\n4. List All Contacts By Phone Number\n5. List All Students\n6. Search By First Name\n7. Search By Last Name\n8. Search By Phone Number\n0. Exit");
         while (input != 0){
             System.out.println("New Input: ");
