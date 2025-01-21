@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+
 public class ContactList {
     private ArrayList<Person> contacts;
 
@@ -79,17 +81,75 @@ public class ContactList {
         return null;
     }
 
+    public void listStudents(){
+        for (Person p:contacts){
+            if (p instanceof Student){
+                System.out.println(p);
+            }
+        }
+    }
+
+    public void run(){
+        int input = -1;
+        Scanner s = new Scanner(System.in);
+        System.out.println("Menu:\n1. Add Contact\n2. List All Contacts By First Name\n3. List All Contacts By Last Name\n4. List All Contacts By Phone Number\n5. List All Students\n6. Search By First Name\n7. Search By Last Name\n8. Search By Phone Number\n0. Exit");
+        while (input != 0){
+            System.out.println("New Input: ");
+            input = s.nextInt();
+            if (input == 1){
+                s.nextLine();
+                System.out.println("First Name:");
+                String firstName = s.nextLine();
+                System.out.println("Last Name:");
+                String lastName = s.nextLine();
+                System.out.println("Phone Number:");
+                String phoneNumber = s.nextLine();
+                System.out.println("Is this person a student?(true/false)");
+                if (s.nextBoolean()){
+                    System.out.println("Grade:");
+                    int grade = s.nextInt();
+                    contacts.add(new Student(firstName, lastName, phoneNumber, grade));
+                    continue;
+                }
+                System.out.println("Is this person a friend?(true/false)");
+                if (s.nextBoolean()){
+                    System.out.println("Is this person a Best Friend?(true/false)");
+                    boolean bestFriend = s.nextBoolean();
+                    contacts.add(new Friend(firstName, lastName, phoneNumber, bestFriend));
+                    continue;
+                }
+                contacts.add(new Person(firstName, lastName, phoneNumber));
+            }
+            else if (input > 1 && input < 5) {
+                sort(input-2);
+                printContacts();
+            }
+            else if (input == 5) {
+                listStudents();
+            }
+            else if (input == 6){
+                s.nextLine();
+                System.out.println("First Name: ");
+                System.out.println(searchByFirstName(s.nextLine()));
+            }
+            else if (input == 7){
+                s.nextLine();
+                System.out.println("Last Name: ");
+                System.out.println(searchByLastName(s.nextLine()));
+            }
+            else if (input == 8){
+                s.nextLine();
+                System.out.println("Phone Number: ");
+                System.out.println(searchByPhoneNumber(s.nextLine()));
+            }
+            else if (input != 0){
+                System.out.println("Menu:\n1. Add Contact\n2. List All Contacts By First Name\n3. List All Contacts By Last Name\n4. List All Contacts By Phone Number\n5. List All Students\n6. Search By First Name\n7. Search By Last Name\n8. Search By Phone Number\n0. Exit");
+            }
+        }
+    }
+
     public static void main(String[] args){
-        System.out.println("working");
-        Person bob = new Person("bob", "b", "8129812398123");
-        Person cob = new Person("cob", "f", "1129812398123");
-        Person dob = new Person("dob", "z", "2129812398123");
         ContactList list = new ContactList();
-        list.addContact(bob);
-        list.addContact(dob);
-        list.addContact(cob);
-        list.printContacts();
-        list.sort(2);
-        list.printContacts();
+        list.run();
     }
 }
